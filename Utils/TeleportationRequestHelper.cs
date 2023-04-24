@@ -45,7 +45,7 @@ namespace RestoreMonarchy.Teleportation.Utils
             UnturnedChat.Say(target, plugin.Translate("TPAReceive", sender.DisplayName), plugin.MessageColor);
         }
 
-        public static void AcceptTPARequest(this TeleportationPlugin plugin, UnturnedPlayer caller)
+        public static bool AcceptTPARequest(this TeleportationPlugin plugin, UnturnedPlayer caller, bool silent = false)
         {
             // Remove all expired TP requests
             plugin.TPRequests.RemoveAll(x => x.IsExpired);
@@ -53,13 +53,14 @@ namespace RestoreMonarchy.Teleportation.Utils
             var request = plugin.TPRequests.FirstOrDefault(x => x.Target == caller.CSteamID);
             if (request == null)
             {
-                UnturnedChat.Say(caller, plugin.Translate("TPANoRequest"), plugin.MessageColor);
-                return;
+                if (!silent) UnturnedChat.Say(caller, plugin.Translate("TPANoRequest"), plugin.MessageColor);
+                return false;
             }
 
             UnturnedChat.Say(caller, plugin.Translate("TPAAccepted", request.SenderPlayer.CharacterName, plugin.MessageColor));
             request.Execute(plugin.Configuration.Instance.TPADelay);
             plugin.TPRequests.Remove(request);
+            return true;
         }
 
         public static void CancelTPARequest(this TeleportationPlugin plugin, UnturnedPlayer caller)

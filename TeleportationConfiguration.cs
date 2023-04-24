@@ -19,17 +19,17 @@ namespace RestoreMonarchy.Teleportation
 
         public void LoadDefaults()
         {
-            MessageColor = "gray";
-            TPACooldown = 90;
-            TPADelay = 3;
-            TPADuration = 90;
-            AllowCave = false;
+            MessageColor = "pink";
+            TPACooldown = 20;
+            TPADelay = 10;
+            TPADuration = 10;
+            AllowCave = true;
             AllowRaid = false;
             RaidDuration = 30;
             AllowCombat = false;
             CombatDuration = 20;
             UseUnsafeTeleport = false;
-            CancelOnMove = true;
+            CancelOnMove = false;
         }
     }
 }

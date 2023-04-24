@@ -28,7 +28,10 @@ namespace RestoreMonarchy.Teleportation.Commands
         {
             if (command.Length < 1)
             {
-                UnturnedChat.Say(caller, TeleportationPlugin.Instance.Translate("TPAHelp"), TeleportationPlugin.Instance.MessageColor);
+                if (!TeleportationPlugin.Instance.AcceptTPARequest((UnturnedPlayer)caller, true))
+                {
+                    UnturnedChat.Say(caller, TeleportationPlugin.Instance.Translate("TPAHelp"), TeleportationPlugin.Instance.MessageColor);
+                }
                 return;
             }
 
